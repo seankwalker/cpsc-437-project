@@ -1,13 +1,22 @@
-# Technologies
+# wimpdb
+("Worse Internet Movie Project Database")  
+For Yale's CPSC 437: Database Systems.  
+
+## Authors
+* Fatima Kahbi '19
+* Sanya Nijhawan '20
+* Sean Walker '19
+
+## Technologies
 * Database: PostgreSQL
 * Frontend: Basic Bootstrap, Jinja, JS if needed (nothing too fancy)
 * Backend: Python (Flask)
 * Host on Heroku
 
-# Data
+## Data
 From IMDB
 
-# Schema
+## Schema
 MOVIES(__id__, name, rating, budget, box\_office, release\_year)
 
 GENRE(__movie\_id__, __genre__)
