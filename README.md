@@ -14,7 +14,7 @@ For Yale's CPSC 437: Database Systems.
 * Host on Heroku
 
 ## Data
-From IMDB
+[From IMDB](https://www.imdb.com/interfaces/)
 
 ## Schema
 MOVIES(__id__, name, rating, budget, box\_office, release\_year)
