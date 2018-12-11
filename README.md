@@ -17,11 +17,11 @@ For Yale's CPSC 437: Database Systems.
 [From IMDB](https://www.imdb.com/interfaces/)
 
 ## Schema
-MOVIES(__id__, name, rating, budget, box\_office, release\_year)
+MOVIES(__id__, name, release\_year)
 
 GENRE(__movie\_id__, __genre__)
 
-PEOPLE(__id__, name, gender, birth\_year)
+PEOPLE(__id__, name, birth\_year)
 
 APPEARED(__actor\_id__, movie\_id)
 
