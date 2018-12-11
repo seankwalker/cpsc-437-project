@@ -1,5 +1,5 @@
 # wimpdb
-("Worse Internet Movie Project Database")  
+("Worse Internet Movie [Project] Database")  
 For Yale's CPSC 437: Database Systems.  
 
 ## Authors
@@ -16,7 +16,9 @@ For Yale's CPSC 437: Database Systems.
 ## Data
 [From IMDB](https://www.imdb.com/interfaces/)
 
-Only including movies since 2008, due to Heroku DB size constraints.
+Only including movies since 2010, due to Heroku DB size constraints.
+
+See the `util/` directory for scripts we wrote to transform data from the format it is in the IMDB files into the format we used for our database. In particular, we excluded all films made before 2010 (and, of course, all actors & directors who don't appear/direct any films 2010 and after) and re-did the id system for people and movies s.t. each are merely id'd by the natural numbers (a different set, i.e. there's movie id 1, 2, 3, ... and person id 1, 2, 3, ...).
 
 ## Schema
 MOVIES(__id__, name, release\_year)
