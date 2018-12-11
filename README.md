@@ -21,7 +21,7 @@ MOVIES(__id__, name, release\_year)
 
 GENRE(__movie\_id__, __genre__)
 
-PEOPLE(__id__, name, birth\_year)
+PEOPLE(__id__, name, birth\_year, death\_year)
 
 APPEARED(__actor\_id__, movie\_id)
 
