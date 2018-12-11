@@ -16,12 +16,14 @@ For Yale's CPSC 437: Database Systems.
 ## Data
 [From IMDB](https://www.imdb.com/interfaces/)
 
+Only including movies since 2008, due to Heroku DB size constraints.
+
 ## Schema
 MOVIES(__id__, name, release\_year)
 
-GENRE(__movie\_id__, __genre__)
+GENRES(__movie\_id__, __genre__)
 
-PEOPLE(__id__, name, birth\_year)
+PEOPLE(__id__, name, birth\_year, death\_year)
 
 APPEARED(__actor\_id__, movie\_id)
 
