@@ -16,7 +16,7 @@ For Yale's CPSC 437: Database Systems.
 ## Data
 [From IMDB](https://www.imdb.com/interfaces/)
 
-Only including movies since 2008, due to Heroku DB size constraints.
+Only including movies since 2010, due to Heroku DB size constraints.
 
 ## Schema
 MOVIES(__id__, name, release\_year)
