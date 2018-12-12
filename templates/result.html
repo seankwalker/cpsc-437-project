@@ -6,17 +6,24 @@
         <h1>search results</h1>
     </div>
     <div class="container">
-        <table>
+        <table class="table">
             <thead>
                 <tr>
-                    <th style="color: forestgreen">{{ message }}</th>
+                    <th scope="col">#</th>
+                    <th scope="col">movie name</th>
+                    <th scope="col">release year</th>
+                    <th scope="col">genre</th>
                 </tr>
             </thead>
             <tbody>
                 {% for i, movie in movies %}
                 <tr>
                     <td>{{ i }}.</td>
-                    <td>{{ movie }}</td>
+                    <td>{{ movie.name }}</td>
+                    <td>{{ movie.release_year }}</td>
+                    <!-- TODO
+                    <td>{{ movie.genre }}</td>
+                    -->
                 </tr>
                 {% endfor %}
             </tbody>

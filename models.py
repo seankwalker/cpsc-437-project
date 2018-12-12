@@ -7,6 +7,9 @@ class Movie(db.Model):
     name = db.Column(db.Text)
     release_year = db.Column(db.Integer)
 
+    def __lt__(self, other):
+        return self.name < other.name
+
     def __repr__(self):
         return f"<Movie {self.name} ({self.release_year})>"
 

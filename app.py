@@ -56,23 +56,38 @@ def process_form():
     # MVP of database operations
     # TODO: we should do the set operations in the DB queries, not Python!
     results = set()
+    movie_genres = None
+
     if start_year:
         # Since these values are required, I guess we don't really need this check?
-        movies_in_year_range = Movie.query.filter(Movie.release_year >= start_year, Movie.release_year <= end_year)
+        movies_in_year_range = Movie.query.filter(
+                Movie.release_year >= start_year,
+                Movie.release_year <= end_year).order_by(Movie.release_year)
         results = set(movies_in_year_range)
     if director:
-        movies_with_director = Movie.query.join(Direction, Movie.id == Direction.movie_id).join(Person, Direction.director_id == Person.id).filter(Person.name == director)
+        movies_with_director = Movie.query.join(Direction,
+                Movie.id == Direction.movie_id).join(Person,
+                        Direction.director_id == Person.id).filter(
+                                Person.name == director)
         results &= set(movies_with_director)
     if actor:
-        movies_with_actor = Movie.query.join(Appearance, Movie.id == Appearance.movie_id).join(Person, Appearance.actor_id == Person.id).filter(Person.name == actor)
+        movies_with_actor = Movie.query.join(Appearance,
+                Movie.id == Appearance.movie_id).join(Person,
+                        Appearance.actor_id == Person.id).filter(
+                                Person.name == actor)
         results &= set(movies_with_actor)
     if genres:
-        movies_of_genre = Movie.query.join(Genre, Movie.id == Genre.movie_id).filter(Genre.genre.in_(genres))
+        movies_of_genre = Movie.query.join(Genre,
+                Movie.id == Genre.movie_id).filter(Genre.genre.in_(genres))
         results &= set(movies_of_genre)
 
+
+    # Render result in order of release year, alphabetical order within a year
+    sorted_results = sorted(list(results),
+            key=lambda movie: (movie.release_year, movie.name))
     return render_template("result.html",
            message=f"",
-           movies=enumerate(results, 1))
+           movies=enumerate(sorted_results, 1))
 
 # Run Flask
 if __name__ == '__main__':
