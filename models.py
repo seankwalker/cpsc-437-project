@@ -8,16 +8,7 @@ class Movie(db.Model):
     release_year = db.Column(db.Integer)
 
     def __repr__(self):
-        return f"<Movie {self.name}>"
-
-class Genre(db.Model):
-    __tablename__ = "genres"
-
-    movie_id = db.Column(db.Integer, primary_key=True)
-    genre = db.Column(db.Text, primary_key=True)
-
-    def __repr__(self):
-        return f"<Genre {self.movie_id}, {self.genre}>"
+        return f"{self.name}"
 
 class Person(db.Model):
     __tablename__ = "people"
@@ -33,8 +24,10 @@ class Person(db.Model):
 class Appearance(db.Model):
     __tablename__ = "appeared"
 
-    actor_id = db.Column(db.Integer, primary_key=True)
-    movie_id = db.Column(db.Integer, primary_key=True)
+    actor_id = db.Column(db.Integer, db.ForeignKey("people.id"),
+            primary_key=True)
+    movie_id = db.Column(db.Integer, db.ForeignKey("movies.id"),
+            primary_key=True)
 
     def __repr__(self):
         return f"<Appearance {self.actor_id} appeared in {self.movie_id}>"
@@ -42,8 +35,21 @@ class Appearance(db.Model):
 class Direction(db.Model):
     __tablename__ = "directed"
 
-    dir_id = db.Column(db.Integer, primary_key=True)
-    movie_id = db.Column(db.Integer, primary_key=True)
+    dir_id = db.Column(db.Integer, db.ForeignKey("people.id"), primary_key=True)
+    movie_id = db.Column(db.Integer, db.ForeignKey("movies.id"),
+            primary_key=True)
 
     def __repr__(self):
         return f"<Direction {self.dir_id} directed {self.movie_id}>"
+
+class Genre(db.Model):
+    __tablename__ = "genres"
+
+    movie_id = db.Column(db.Integer, db.ForeignKey("movies.id"),
+            primary_key=True)
+    genre = db.Column(db.Text, primary_key=True)
+
+    movie = db.relationship("Movie")
+
+    def __repr__(self):
+        return f"<Genre {self.movie_id}, {self.genre}>"

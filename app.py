@@ -47,12 +47,15 @@ def index():
 @app.route("/submit", methods=["POST"])
 def process_form():
     year = request.form["year"]
-    genre = request.form["genre"]
+    genre = request.form["genre"].lower()
 
-    # Query the Heroku DB with SQLAlchemy (`db`)
-    movie = Movie.query.all()
-    print(movie)
+    # MVP of database operations
+    # TODO: make this actually use filters and such
+    movies = Movie.query.join(Genre, Movie.id == Genre.movie_id).filter(Movie.release_year == year, Genre.genre == genre).all()
 
+    return render_template("result.html",
+            message=f"All {genre} movies from {year}:",
+            movies=enumerate(movies, 1))
 
 # Run Flask
 if __name__ == '__main__':
