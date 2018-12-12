@@ -1,6 +1,6 @@
 # wimpdb
-("Worse Internet Movie [Project] Database")  
-For Yale's CPSC 437: Database Systems.  
+("Worse Internet Movie [Project] Database")
+For Yale's CPSC 437: Database Systems.
 
 ## Authors
 * Fatima Kahbi '19
@@ -29,5 +29,5 @@ PEOPLE(__id__, name, birth\_year, death\_year)
 
 APPEARED(__actor\_id__, **movie\_id**)
 
-DIRECTED(__dir\_id__, **movie\_id**)
+DIRECTED(__director\_id__, **movie\_id**)
 
