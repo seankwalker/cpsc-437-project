@@ -16,16 +16,23 @@ def index():
 	form = QueryForm(request.form)
 	print('here')
 	if request.method=='POST':
-		year = request.form['year']
+		start_year = request.form['start_year']
+		end_year = request.form['end_year']
 		genre=request.form['genre']
 		print(genre)
 		if form.validate():
 			flash(str(year) + " " + str(genre))
-			return redirect(url_for('index'))
+			return redirect(url_for('results', year=year, genre=genre))
 		else:
 			flash("All the form fields are required")
-	print('about to render')
 	return render_template('index.html', form=form)
+
+@app.route("/results/<year>/<genre>", methods=['GET'])
+def results():
+	form = QueryForm(request.form)
+	print('here')
+	
+	return render_template('results.html', form=form)
 
 @app.route("/name/<name>")
 def get_movie_name(name):
