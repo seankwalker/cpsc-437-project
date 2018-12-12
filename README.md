@@ -27,7 +27,7 @@ GENRES(__movie\_id__, __genre__)
 
 PEOPLE(__id__, name, birth\_year, death\_year)
 
-APPEARED(__actor\_id__, movie\_id)
+APPEARED(__actor\_id__, **movie\_id**)
 
-DIRECTED(__dir\_id__, movie\_id)
+DIRECTED(__dir\_id__, **movie\_id**)
 
