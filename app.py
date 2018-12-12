@@ -46,21 +46,33 @@ def index():
 # Form submission
 @app.route("/submit", methods=["POST"])
 def process_form():
-    # Proces form data
-	form = QueryForm(request.form)
-	start_year = request.form["start_year"]
-	end_year = request.form["end_year"]
-	director = request.form["director"]
-	actor = request.form["actor"]
-	genres = form.genres.data
+    form = QueryForm(request.form)
+    start_year = request.form["start_year"]
+    end_year = request.form["end_year"]
+    director = request.form["director"]
+    actor = request.form["actor"]
+    genres = form.genres.data
 
     # MVP of database operations
-    # TODO: make this actually use filters and such
-    # movies = Movie.query.join(Genre, Movie.id == Genre.movie_id).filter(Movie.release_year == year, Genre.genre == genre).all()
+    # TODO: we should do the set operations in the DB queries, not Python!
+    results = set()
+    if start_year:
+        # Since these values are required, I guess we don't really need this check?
+        movies_in_year_range = Movie.query.filter(Movie.release_year >= start_year, Movie.release_year <= end_year)
+        results = set(movies_in_year_range)
+    if director:
+        movies_with_director = Movie.query.join(Direction, Movie.id == Direction.movie_id).join(Person, Direction.director_id == Person.id).filter(Person.name == director)
+        results &= set(movies_with_director)
+    if actor:
+        movies_with_actor = Movie.query.join(Appearance, Movie.id == Appearance.movie_id).join(Person, Appearance.actor_id == Person.id).filter(Person.name == actor)
+        results &= set(movies_with_actor)
+    if genres:
+        movies_of_genre = Movie.query.join(Genre, Movie.id == Genre.movie_id).filter(Genre.genre.in_(genres))
+        results &= set(movies_of_genre)
 
-    #return render_template("result.html",
-    #        message=f"All {genre} movies from {year}:",
-    #        movies=enumerate(movies, 1))
+    return render_template("result.html",
+           message=f"",
+           movies=enumerate(results, 1))
 
 # Run Flask
 if __name__ == '__main__':

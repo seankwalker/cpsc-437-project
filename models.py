@@ -8,7 +8,7 @@ class Movie(db.Model):
     release_year = db.Column(db.Integer)
 
     def __repr__(self):
-        return f"{self.name}"
+        return f"<Movie {self.name} ({self.release_year})>"
 
 class Person(db.Model):
     __tablename__ = "people"
@@ -35,12 +35,12 @@ class Appearance(db.Model):
 class Direction(db.Model):
     __tablename__ = "directed"
 
-    dir_id = db.Column(db.Integer, db.ForeignKey("people.id"), primary_key=True)
+    director_id = db.Column(db.Integer, db.ForeignKey("people.id"), primary_key=True)
     movie_id = db.Column(db.Integer, db.ForeignKey("movies.id"),
             primary_key=True)
 
     def __repr__(self):
-        return f"<Direction {self.dir_id} directed {self.movie_id}>"
+        return f"<Direction {self.director_id} directed {self.movie_id}>"
 
 class Genre(db.Model):
     __tablename__ = "genres"
