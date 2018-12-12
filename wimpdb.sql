@@ -8686,6 +8686,46 @@ ALTER TABLE ONLY public.people
 
 
 --
+-- Name: genres movie; Type: FK CONSTRAINT; Schema: public; Owner: skw
+--
+
+ALTER TABLE ONLY public.genres
+    ADD CONSTRAINT movie FOREIGN KEY (movie_id) REFERENCES public.movies(id);
+
+
+--
+-- Name: appeared movie; Type: FK CONSTRAINT; Schema: public; Owner: skw
+--
+
+ALTER TABLE ONLY public.appeared
+    ADD CONSTRAINT movie FOREIGN KEY (movie_id) REFERENCES public.movies(id);
+
+
+--
+-- Name: directed movie; Type: FK CONSTRAINT; Schema: public; Owner: skw
+--
+
+ALTER TABLE ONLY public.directed
+    ADD CONSTRAINT movie FOREIGN KEY (movie_id) REFERENCES public.movies(id);
+
+
+--
+-- Name: appeared person; Type: FK CONSTRAINT; Schema: public; Owner: skw
+--
+
+ALTER TABLE ONLY public.appeared
+    ADD CONSTRAINT person FOREIGN KEY (actor_id) REFERENCES public.people(id);
+
+
+--
+-- Name: directed person; Type: FK CONSTRAINT; Schema: public; Owner: skw
+--
+
+ALTER TABLE ONLY public.directed
+    ADD CONSTRAINT person FOREIGN KEY (director_id) REFERENCES public.people(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 

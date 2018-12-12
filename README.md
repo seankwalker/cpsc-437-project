@@ -9,9 +9,9 @@ For Yale's CPSC 437: Database Systems.
 
 ## Technologies
 * Database: PostgreSQL
-* Frontend: Basic Bootstrap, Jinja, JS if needed (nothing too fancy)
+* Frontend: Bootstrap, Jinja
 * Backend: Python (Flask)
-* Host on Heroku
+* Hosted on Heroku
 
 ## Data
 [From IMDB](https://www.imdb.com/interfaces/)
