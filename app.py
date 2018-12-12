@@ -4,33 +4,30 @@ from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from forms import QueryForm
 
+# Flask setup
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/wimpdb'
 app.config['SECRET_KEY'] = '7d4e41f27d441f27567d441f2b6176a'
 db = SQLAlchemy(app)
 
+# Bootstrap setup
 bootstrap = Bootstrap(app)
 
-@app.route("/", methods=['GET', 'POST'])
+# index.html
+@app.route("/", methods=['GET'])
 def index():
 	form = QueryForm(request.form)
-	print('here')
-	if request.method=='POST':
-		year = request.form['year']
-		genre=request.form['genre']
-		print(genre)
-		if form.validate():
-			flash(str(year) + " " + str(genre))
-			return redirect(url_for('index'))
-		else:
-			flash("All the form fields are required")
-	print('about to render')
 	return render_template('index.html', form=form)
 
-@app.route("/name/<name>")
-def get_movie_name(name):
-    return "name : {}".format(name)
+# Form submission
+@app.route("/submit", methods=["POST"])
+def process_form():
+    year = request.form["year"]
+    genre = request.form["genre"]
 
+    # Query the Heroku DB with SQLAlchemy (`db`)
+
+# Run Flask
 if __name__ == '__main__':
     app.debug = True
     app.run()
