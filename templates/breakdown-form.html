@@ -1,0 +1,53 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}wimpdb: Home{% endblock %}
+
+{% block styles %}
+{{super()}}
+<link href={{url_for('.static', filename='styles.css')}} rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block content %}
+{% include 'base.html' %}
+    <div class="container">
+        <h1>
+            wimpdb
+            <small class="text-muted">view movie genre statistics</small>
+        </h1>
+    </div>
+
+    <div class="container">
+        <form method="post" action={{ url_for("process_breakdown_form") }}>
+            <div class="form-group  ">
+                <label for="start_year">start year</label>
+                <select class="form-control" id="start_year" name="start_year">
+                    <option>2010</option>
+                    <option>2011</option>
+                    <option>2012</option>
+                    <option>2013</option>
+                    <option>2014</option>
+                    <option>2015</option>
+                    <option>2016</option>
+                    <option>2017</option>
+                    <option>2018</option>
+                </select>
+                <br>
+                <label for="end_year">end year</label>
+                <select class="form-control" id="end_year" name="end_year">
+                    <option>2010</option>
+                    <option>2011</option>
+                    <option>2012</option>
+                    <option>2013</option>
+                    <option>2014</option>
+                    <option>2015</option>
+                    <option>2016</option>
+                    <option>2017</option>
+                    <option>2018</option>
+                </select>
+            </div>
+            <br>
+            <div class="input submit">
+                <input type="submit" name="submit" value="Submit" class="btn btn-primary"/>
+            </div>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}wimpdb: Search Results{% endblock %}
+
+{% block styles %}
+{{super()}}
+<link href={{ url_for('.static', filename='styles.css')}} rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block content %}
+{% include 'base.html' %}
+<div class="container">
+        <h1>
+            wimpdb:
+            <span id="search-results">movie genres from {{ start_year }} {% if start_year != end_year %} to {{ end_year }} {% endif %}</span>
+        </h1>
+    </div>
+<br><br>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-6">
+            {{ graph.render() | safe }}
+        </div>
+        <div class="col-xs-6">
+            {{ pie.render() | safe }}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

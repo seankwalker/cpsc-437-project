@@ -5,6 +5,8 @@ from flask import Flask, session, render_template, flash, request, redirect,\
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from forms import QueryForm
+from sqlalchemy import create_engine
+import pygal
 
 # Flask setup
 app = Flask(__name__)
@@ -58,7 +60,7 @@ def search():
         json.append({"name": person.name})
     return jsonify(json)
 
-# Form submission
+# Search form submission
 @app.route("/submit", methods=["POST"])
 def process_form():
     start_year = request.form["start_year"]
@@ -112,6 +114,33 @@ def process_form():
             searched_for=filters,
             movies=enumerate(sorted_results, 1))
 
+# Breakdown form
+@app.route("/breakdown", methods=["GET"])
+def breakdown_form():
+    return render_template("breakdown-form.html")
+
+@app.route("/submit_breakdown", methods=["POST"])
+def process_breakdown_form():
+    start_year = request.form["start_year"]
+    end_year = request.form["end_year"]
+
+    engine = create_engine("postgres://lznmvmnwxewfng:879d2624ccd62d5435178e4a54f13e8e8415009d91427fa53524c58c03c19897@ec2-54-197-234-33.compute-1.amazonaws.com:5432/dcodd2lcc71npc")
+    cur = engine.connect()
+
+    counts = cur.execute("""SELECT genre, COUNT(movies.id) FROM movies, genres WHERE genres.movie_id = movies.id AND movies.release_year BETWEEN %s AND %s GROUP BY genre""", start_year, end_year)
+
+    result = [count for count in counts]
+    print([r[0] for r in result])
+    print([r[1] for r in result])
+
+    result_graph = pygal.Bar()
+    pie_chart = pygal.Pie()
+    for r in result:
+        result_graph.add(r[0], r[1])
+        pie_chart.add(r[0], r[1])
+
+    return render_template("breakdown-result.html", graph=result_graph, pie=pie_chart, start_year=start_year, end_year=end_year)
+
 # Run Flask
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run()
