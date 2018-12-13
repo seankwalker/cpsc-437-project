@@ -6,6 +6,18 @@ h1 {
     color: forestgreen;
 }
 
+h1 a {
+    color: inherit;
+}
+
+#search-summary {
+    font-size: 15px;
+}
+
+#search-results {
+    color: lightseagreen;
+}
+
 footer {
     text-align: center;
     position: fixed;

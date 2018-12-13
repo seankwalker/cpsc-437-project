@@ -67,41 +67,50 @@ def process_form():
     actor = request.form["actor"]
     genres = request.form.getlist("genres")
 
-    # MVP of database operations
-    # TODO: we should do the set operations in the DB queries, not Python!
     results = set()
+    filters = {}
 
-    if start_year:
-	# Since these values are required, I guess we don't really need this check?
-        movies_in_year_range = Movie.query.filter(
-		Movie.release_year >= start_year,
-		Movie.release_year <= end_year).order_by(Movie.release_year)
-        results = set(movies_in_year_range)
+    # Start and end year are required
+    movies_in_year_range = Movie.query.filter(
+    Movie.release_year >= start_year,
+    Movie.release_year <= end_year).order_by(Movie.release_year)
+    results = set(movies_in_year_range)
+    filters["start_year"] = start_year
+    filters["end_year"] = end_year
+
     if director:
         movies_with_director = Movie.query.join(Direction,
                 Movie.id == Direction.movie_id).join(Person,
                 Direction.director_id == Person.id).filter(
                         Person.name == director)
         results &= set(movies_with_director)
+        filters["director"] = director
     if actor:
         movies_with_actor = Movie.query.join(Appearance,
 		        Movie.id == Appearance.movie_id).join(Person,
 			        Appearance.actor_id == Person.id).filter(
 				            Person.name == actor)
         results &= set(movies_with_actor)
-
+        filters["actor"] = actor
     if genres:
         movies_of_genre = Movie.query.join(Genre,
                 Movie.id == Genre.movie_id).filter(Genre.genre.in_(genres))
         results &= set(movies_of_genre)
+        filters["genres"] = genres
 
+    # Get genres of all resulting movies
+    results_with_genres = []
+    for movie in results:
+        this_movies_genres = Genre.query.filter(Genre.movie_id == movie.id).all()
+        results_with_genres.append({"name": movie.name,
+                "release_year": movie.release_year, "genre": [g.genre for g in this_movies_genres]})
 
     # Render result in order of release year, alphabetical order within a year
-    sorted_results = sorted(list(results),
-	    key=lambda movie: (movie.release_year, movie.name))
+    sorted_results = sorted(results_with_genres,
+	    key=lambda movie: (movie["release_year"], movie["name"]))
     return render_template("result.html",
-	   message=f"",
-	   movies=enumerate(sorted_results, 1))
+            searched_for=filters,
+            movies=enumerate(sorted_results, 1))
 
 # Run Flask
 if __name__ == '__main__':
