@@ -1,5 +1,4 @@
 {% extends "bootstrap/base.html" %}
-{% import "bootstrap/wtf.html" as wtf %}
 {% block title %}wimpdb: Home{% endblock %}
 
 {% block styles %}
@@ -14,25 +13,81 @@
 <script src="static/scripts.js"></script>
 {% endblock %}
 
-
 {% block content %}
     <div class="container">
         <h1>wimpdb</h1>
     </div>
+
     <div class="container">
-    	<br>
-        <div class="col-lg-6">
-        <form class="form-horizontal" method="post" action={{ url_for("process_form") }}>
-        	<dl>
-            {{ form.hidden_tag() }}
-            {{ wtf.form_errors(form, hiddens="only") }}
-            {{ wtf.quick_form(form, form_type="horizontal", horizontal_columns=('lg', 3, 9)) }}
+        <form method="post" action={{ url_for("process_form") }}>
+            <div class="form-group  ">
+                <label for="start_year">start year</label>
+                <input class="form-control" id="start_year" name="start_year" type="text">
+                <br>
+                <label for="end_year">end year</label>
+                <input class="form-control" id="end_year" name="end_year" type="text">
+            </div>
+            <div class="form-group">
+                <label for="actor">including actor/actress...</label>
+                <input class="form-control" id="actor" name="actor" type="text">
+                <br>
+                <label for="director">directed by...</label>
+                <input class="form-control" id="director" name="director" type="text">
+            </div>
+            <div class="form-group">
+                <label for="genre_header">genres</label>
+                <input type="hidden" id="genres">
+                <br>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="genres" value="action" id="action">
+                    <label class="form-check-label" for="adventure">Action</label>
+                    <input class="form-check-input" type="checkbox" name="genres" value="adventure" id="adventure">
+                    <label class="form-check-label" for="adventure">Adventure</label>
+                    <input class="form-check-input" type="checkbox" name="genres" value="animation" id="animation">
+                    <label class="form-check-label" for="adventure">Animation</label>
+                    <input class="form-check-input" type="checkbox" name="genres" value="biography" id="biography">
+                    <label class="form-check-label" for="adventure">Biography</label>
+                    <input class="form-check-input" type="checkbox" name="genres" value="comedy" id="comedy">
+                    <label class="form-check-label" for="adventure">Comedy</label>
+                    <input class="form-check-input" type="checkbox" name="genres" value="crime" id="crime">
+                    <label class="form-check-label" for="adventure">Crime</label>
+                    <input class="form-check-input" type="checkbox" name="genres" value="documentary" id="documentary">
+                    <label class="form-check-label" for="adventure">Documentary</label>
+                    <input class="form-check-input" type="checkbox" name="genres" value="drama" id="drama">
+                    <label class="form-check-label" for="adventure">Drama</label>
+                    <input class="form-check-input" type="checkbox" name="genres" value="family" id="family">
+                    <label class="form-check-label" for="adventure">Family</label>
+                    <input class="form-check-input" type="checkbox" name="genres" value="fantasy" id="fantasy">
+                    <label class="form-check-label" for="adventure">Fantasy</label>
+                    <input class="form-check-input" type="checkbox" name="genres" value="history" id="history">
+                    <label class="form-check-label" for="adventure">History</label>
+                    <input class="form-check-input" type="checkbox" name="genres" value="horror" id="horror">
+                    <label class="form-check-label" for="adventure">Horror</label>
+                    <input class="form-check-input" type="checkbox" name="genres" value="music" id="music">
+                    <label class="form-check-label" for="adventure">Music</label>
+                    <input class="form-check-input" type="checkbox" name="genres" value="musical" id="musical">
+                    <label class="form-check-label" for="adventure">Musical</label>
+                    <input class="form-check-input" type="checkbox" name="genres" value="mystery" id="mystery">
+                    <label class="form-check-label" for="adventure">Mystery</label>
+                    <input class="form-check-input" type="checkbox" name="genres" value="romance" id="romance">
+                    <label class="form-check-label" for="adventure">Romance</label>
+                    <input class="form-check-input" type="checkbox" name="genres" value="sci-fi" id="sci-fi">
+                    <label class="form-check-label" for="adventure">Sci-fi</label>
+                    <input class="form-check-input" type="checkbox" name="genres" value="sport" id="sport">
+                    <label class="form-check-label" for="adventure">Sport</label>
+                    <input class="form-check-input" type="checkbox" name="genres" value="thriller" id="thriller">
+                    <label class="form-check-label" for="adventure">Thriller</label>
+                    <input class="form-check-input" type="checkbox" name="genres" value="war" id="war">
+                    <label class="form-check-label" for="adventure">War</label>
+                    <input class="form-check-input" type="checkbox" name="genres" value="western" id="western">
+                    <label class="form-check-label" for="adventure">Western</label>
+                </div>
+            </div>
+            <br>
             <div class="input submit">
             	<input type="submit" name="submit" value="Submit" class="btn btn-primary"/>
             </div>
-        	</dl>
         </form>
-        </div>
     </div>
 {% endblock %}
 

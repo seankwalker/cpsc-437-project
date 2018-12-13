@@ -61,12 +61,11 @@ def search():
 # Form submission
 @app.route("/submit", methods=["POST"])
 def process_form():
-    form = QueryForm(request.form)
     start_year = request.form["start_year"]
     end_year = request.form["end_year"]
     director = request.form["director"]
     actor = request.form["actor"]
-    genres = form.genres.data
+    genres = request.form.getlist("genres")
 
     # MVP of database operations
     # TODO: we should do the set operations in the DB queries, not Python!

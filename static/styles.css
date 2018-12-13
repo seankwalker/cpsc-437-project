@@ -16,6 +16,10 @@ h1 {
     background-color: #ffffff !important;
 }
 
+.twitter-typeahead {
+    display: block !important;
+}
+
 /* stylize typeahead.js a la http://twitter.github.io/typeahead.js/css/examples.css */
 .typeahead,
 .tt-query,
