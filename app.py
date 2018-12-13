@@ -130,8 +130,8 @@ def process_breakdown_form():
     counts = cur.execute("""SELECT genre, COUNT(movies.id) FROM movies, genres WHERE genres.movie_id = movies.id AND movies.release_year BETWEEN %s AND %s GROUP BY genre""", start_year, end_year)
 
     result = [count for count in counts]
-    print([r[0] for r in result])
-    print([r[1] for r in result])
+    # print([r[0] for r in result])
+    # print([r[1] for r in result])
 
     result_graph = pygal.Bar()
     pie_chart = pygal.Pie()
@@ -139,7 +139,7 @@ def process_breakdown_form():
         result_graph.add(r[0], r[1])
         pie_chart.add(r[0], r[1])
 
-    return render_template("breakdown-result.html", graph=result_graph, pie=pie_chart, start_year=start_year, end_year=end_year)
+    return render_template("breakdown-result.html", graph=result_graph, pie=pie_chart, start_year=start_year, end_year=end_year, genres=result)
 
 # Run Flask
 if __name__ == "__main__":

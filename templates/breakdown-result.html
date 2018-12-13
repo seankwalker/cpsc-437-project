@@ -6,12 +6,17 @@
 <link href={{ url_for('.static', filename='styles.css')}} rel="stylesheet" type="text/css">
 {% endblock %}
 
+{% block scripts %}
+<script type="text/javascript" src="http://kozea.github.com/pygal.js/javascripts/svg.jquery.js"></script>
+<script type="text/javascript" src="http://kozea.github.com/pygal.js/javascripts/pygal-tooltips.js"></script>
+{% endblock %}
+
 {% block content %}
 {% include 'base.html' %}
 <div class="container">
         <h1>
             wimpdb:
-            <span id="search-results">movie genres from {{ start_year }} {% if start_year != end_year %} to {{ end_year }} {% endif %}</span>
+            <span id="search-results">movie genre breakdown {% if start_year != end_year %} from {% else %} in {% endif %} {{ start_year }} {% if start_year != end_year %} to {{ end_year }} {% endif %}</span>
         </h1>
     </div>
 <br><br>
@@ -23,6 +28,22 @@
         <div class="col-xs-6">
             {{ pie.render() | safe }}
         </div>
+    </div>
+    <div class="row">
+        <table class="table">
+            <thead>
+                <th>genre</th>
+                <th>count</th>
+            </thead>
+            <tbody>
+                {% for genre in genres %}
+                    <tr>
+                        <td>{{ genre[0] }}</td>
+                        <td>{{ genre[1] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </div>
 
