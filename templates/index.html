@@ -3,7 +3,7 @@
 
 {% block styles %}
 {{super()}}
-<link href={{url_for('.static', filename='styles.css')}} rel="stylesheet" type="text/css">
+<link href={{ url_for('.static', filename='styles.css') }} rel="stylesheet" type="text/css">
 {% endblock %}
 
 {% block scripts %}
@@ -77,6 +77,7 @@
                     <label class="form-check-label" for="adventure">Crime</label>
                     <input class="form-check-input" type="checkbox" name="genres" value="documentary" id="documentary">
                     <label class="form-check-label" for="adventure">Documentary</label>
+                </div><div class="form-check">
                     <input class="form-check-input" type="checkbox" name="genres" value="drama" id="drama">
                     <label class="form-check-label" for="adventure">Drama</label>
                     <input class="form-check-input" type="checkbox" name="genres" value="family" id="family">
@@ -91,6 +92,7 @@
                     <label class="form-check-label" for="adventure">Music</label>
                     <input class="form-check-input" type="checkbox" name="genres" value="musical" id="musical">
                     <label class="form-check-label" for="adventure">Musical</label>
+                </div><div class="form-check">
                     <input class="form-check-input" type="checkbox" name="genres" value="mystery" id="mystery">
                     <label class="form-check-label" for="adventure">Mystery</label>
                     <input class="form-check-input" type="checkbox" name="genres" value="romance" id="romance">

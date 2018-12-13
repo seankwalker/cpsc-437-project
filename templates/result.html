@@ -14,44 +14,60 @@
             <span id="search-results">search results</span>
         </h1>
     </div>
+
+
     <div class="container">
-        <p id="search-summary">
-            you searched from {{ searched_for.start_year }} to {{ searched_for.end_year }} for
-            {% if searched_for.genres %}
-                {% if searched_for.genres | length == 1 %}
-                    {{ searched_for.genres[0] }}
-                {% elif searched_for.genres | length == 2 %}
-                    {{ searched_for.genres[0] }} and {{ searched_for.genres[1] }}
-                {% else %}
-                    {{ searched_for.genres[:-1] | join(", ")}}, and {{ searched_for.genres[-1] }}
+        {% if count < 1 %}
+            <br><br>
+            <div class="row">
+                <div class="col-xs-6">
+                    <img src="static/avi.jpg"></img>
+                </div>
+                <div class="col-xs-6" id="avi-says">
+                    <br><br><br><br><br><br><br><br><br><br><br><br>
+                    <h1>Avi says:</h1>
+                    <h2>Your query returned no results!</h2>
+                </div>
+            </div>
+        {% else %}
+            <p id="search-summary">
+                you searched from {{ searched_for.start_year }} to {{ searched_for.end_year }} for
+                {% if searched_for.genres %}
+                    {% if searched_for.genres | length == 1 %}
+                        {{ searched_for.genres[0] }}
+                    {% elif searched_for.genres | length == 2 %}
+                        {{ searched_for.genres[0] }} and {{ searched_for.genres[1] }}
+                    {% else %}
+                        {{ searched_for.genres[:-1] | join(", ")}}, and {{ searched_for.genres[-1] }}
+                    {% endif %}
                 {% endif %}
-            {% endif %}
-            movies
-            {% if searched_for.actor %} starring {{ searched_for.actor }}{% endif %}
-            {% if searched_for.director %} directed by {{ searched_for.director }}{% endif %}
-        </p>
-        <br>
-    </div>
-    <div class="container">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">movie name</th>
-                    <th scope="col">release year</th>
-                    <th scope="col">genre</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for i, movie in movies %}
-                <tr>
-                    <td>{{ i }}.</td>
-                    <td>{{ movie.name }}</td>
-                    <td>{{ movie.release_year }}</td>
-                    <td>{{ movie.genre | join(", ") }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                movies
+                {% if searched_for.actor %} starring {{ searched_for.actor }}{% endif %}
+                {% if searched_for.director %} directed by {{ searched_for.director }}{% endif %}
+            </p>
+            <br>
+        </div>
+        <div class="container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">movie name</th>
+                        <th scope="col">release year</th>
+                        <th scope="col">genre</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i, movie in movies %}
+                    <tr>
+                        <td>{{ i }}.</td>
+                        <td>{{ movie.name }}</td>
+                        <td>{{ movie.release_year }}</td>
+                        <td>{{ movie.genre | join(", ") }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
     </div>
 {% endblock %}

@@ -112,7 +112,8 @@ def process_form():
 	    key=lambda movie: (movie["release_year"], movie["name"]))
     return render_template("result.html",
             searched_for=filters,
-            movies=enumerate(sorted_results, 1))
+            movies=enumerate(sorted_results, 1),
+            count=len(sorted_results))
 
 # Breakdown form
 @app.route("/breakdown", methods=["GET"])
@@ -139,7 +140,7 @@ def process_breakdown_form():
         result_graph.add(r[0], r[1])
         pie_chart.add(r[0], r[1])
 
-    return render_template("breakdown-result.html", graph=result_graph, pie=pie_chart, start_year=start_year, end_year=end_year, genres=result)
+    return render_template("breakdown-result.html", graph=result_graph, pie=pie_chart, start_year=start_year, end_year=end_year, genres=result, count=len(result))
 
 # Run Flask
 if __name__ == "__main__":

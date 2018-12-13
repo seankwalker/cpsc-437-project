@@ -10,6 +10,23 @@ h1 a {
     color: inherit;
 }
 
+#avi-says {
+    text-align: center;
+}
+
+#avi-says h1 {
+    color: black;
+}
+
+h2 {
+    color: red;
+}
+
+img {
+    max-height: 800px;
+    max-width: fit-content;
+}
+
 #search-summary {
     font-size: 15px;
 }

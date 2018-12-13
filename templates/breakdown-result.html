@@ -21,30 +21,44 @@
     </div>
 <br><br>
 <div class="container">
-    <div class="row">
-        <div class="col-xs-6">
-            {{ graph.render() | safe }}
+    {% if count < 1 %}
+        <br><br>
+        <div class="row">
+            <div class="col-xs-6">
+                <img src="static/avi.jpg"></img>
+            </div>
+            <div class="col-xs-6" id="avi-says">
+                <br><br><br><br><br><br><br><br><br><br><br><br>
+                <h1>Avi says:</h1>
+                <h2>Your query returned no results!</h2>
+            </div>
         </div>
-        <div class="col-xs-6">
-            {{ pie.render() | safe }}
+    {% else %}
+        <div class="row">
+            <div class="col-xs-6">
+                {{ graph.render() | safe }}
+            </div>
+            <div class="col-xs-6">
+                {{ pie.render() | safe }}
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <table class="table">
-            <thead>
-                <th>genre</th>
-                <th>count</th>
-            </thead>
-            <tbody>
-                {% for genre in genres %}
-                    <tr>
-                        <td>{{ genre[0] }}</td>
-                        <td>{{ genre[1] }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+        <div class="row">
+            <table class="table">
+                <thead>
+                    <th>genre</th>
+                    <th>count</th>
+                </thead>
+                <tbody>
+                    {% for genre in genres %}
+                        <tr>
+                            <td>{{ genre[0] }}</td>
+                            <td>{{ genre[1] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
 </div>
 
 {% endblock %}
